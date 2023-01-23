@@ -45,3 +45,23 @@ RESPOSTA CASOS DE ERRO
     - status: 404
     - body: { error: "There is not an user with this username" }
 ```
+
+## Lista todos tweets do usuário "username".
+```yml
+GET /tweets/Yorí
+    - headers: {}
+RESPOSTA CASO SUCESSO
+    - status: 200
+    - body: [
+      {
+        username: "Yorí",
+        avatar: "https://i.imgur.com/zYnwrrg.png",
+        tweet: "Um tweet qualquer"
+      }, ...
+    ]
+
+RESPOSTA CASOS DE ERRO
+  - USERNAME NÃO EXISTENTE
+    - status: 404
+    - body: { error: "There is not an user with this username" }
+```
