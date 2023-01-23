@@ -25,6 +25,11 @@ public class GlobalErrorHandler {
         return new ResponseEntity<>(getErrorMap(ex.getMessage()), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, String>> NotFoundError(NotFoundException ex) {
+        return new ResponseEntity<>(getErrorMap(ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
     private Map<String, String> getErrorMap(String error) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("error", error);
