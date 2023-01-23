@@ -32,4 +32,10 @@ public class TweetsController {
         List<TweetsWithAvatarDTO> tweets = this.tweetsService.getTweetsByUsernameWithAvatar(username);
         return  new ResponseEntity<>(tweets, HttpStatus.OK);
     }
+
+    @GetMapping()
+    public  ResponseEntity<List<TweetsWithAvatarDTO>> getTweetsByPage(@RequestParam String page){
+        List<TweetsWithAvatarDTO> tweets = this.tweetsService.getTweetsByPage(Integer.parseInt(page));
+        return  new ResponseEntity<>(tweets, HttpStatus.OK);
+    }
 }
