@@ -36,9 +36,8 @@ public class TweetsService {
         return this.tweetsRepo.findByUserId(user.getId()).stream().map(tweet -> new TweetsWithAvatarDTO(user.getUsername(),user.getAvatar(),tweet.getTweet())).toList();
     }
 
-    public List<TweetsWithAvatarDTO> getTweetsByPage(int pages){
+    public List<TweetsWithAvatarDTO> getTweetsByPage(int page){
         int elements = 5;
-        int page = Math.max(pages - 1, 0);
         Pageable pageable = PageRequest.of(page, elements, Sort.by("createdAt").descending());
         return this.tweetsRepo.findAll(pageable).map(tweet -> {
             Optional<User> user = this.usersRepo.findById(tweet.getUserId());
