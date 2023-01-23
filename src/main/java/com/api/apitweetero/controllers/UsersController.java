@@ -1,7 +1,7 @@
 package com.api.apitweetero.controllers;
 
 import com.api.apitweetero.dtos.UsersDTO;
-import com.api.apitweetero.models.UsersModel;
+import com.api.apitweetero.errors.ConflictException;
 import com.api.apitweetero.services.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class UsersController {
     }
 
     @PostMapping("/sign-up")
-    public  ResponseEntity<String> createUser(@RequestBody @Valid UsersDTO req) {
+    public  ResponseEntity<String> createUser(@RequestBody @Valid UsersDTO req) throws ConflictException {
         this.service.save(req);
         return new ResponseEntity<>("Ok", HttpStatus.CREATED);
     }
