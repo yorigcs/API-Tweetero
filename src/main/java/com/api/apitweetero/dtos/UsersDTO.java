@@ -5,10 +5,10 @@ import jakarta.validation.constraints.Size;
 
 public record UsersDTO(
         @NotNull
-        @Size(max = 30)
+        @Size(min = 1,max = 30)
         String username,
         @NotNull
-        @Size(max = 30)
+        @Size(min = 1)
         String avatar
 ) {
 }
