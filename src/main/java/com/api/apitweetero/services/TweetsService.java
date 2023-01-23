@@ -7,9 +7,13 @@ import com.api.apitweetero.models.Tweet;
 import com.api.apitweetero.models.User;
 import com.api.apitweetero.repositories.TweetsRepository;
 import com.api.apitweetero.repositories.UsersRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TweetsService {
@@ -30,5 +34,15 @@ public class TweetsService {
         User user = this.usersRepo.findByUsername(username);
         if(user == null) throw new NotFoundException("There is not an user with this username");
         return this.tweetsRepo.findByUserId(user.getId()).stream().map(tweet -> new TweetsWithAvatarDTO(user.getUsername(),user.getAvatar(),tweet.getTweet())).toList();
+    }
+
+    public List<TweetsWithAvatarDTO> getTweetsByPage(int pages){
+        int elements = 5;
+        int page = Math.max(pages - 1, 0);
+        Pageable pageable = PageRequest.of(page, elements, Sort.by("createdAt").descending());
+        return this.tweetsRepo.findAll(pageable).map(tweet -> {
+            Optional<User> user = this.usersRepo.findById(tweet.getUserId());
+            return user.map(value -> new TweetsWithAvatarDTO(value.getUsername(), value.getAvatar(), tweet.getTweet())).orElse(null);
+        }).toList();
     }
 }
