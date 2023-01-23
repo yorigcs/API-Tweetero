@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -14,6 +16,7 @@ public class Tweet {
     public Tweet(TweetsDTO tweets, String userId) {
         this.userId = userId;
         this.tweet = tweets.tweet();
+        this.createdAt = new Date();
     }
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,6 +27,9 @@ public class Tweet {
 
     @Column(nullable = false)
     private String userId;
+
+    @Column(nullable = false)
+    private Date createdAt;
 
 
 
