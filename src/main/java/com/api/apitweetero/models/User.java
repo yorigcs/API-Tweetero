@@ -5,23 +5,27 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
-public class UsersModel {
+@Table(name = "users")
+public class User {
 
-    public UsersModel(UsersDTO users) {
+    public User(UsersDTO users) {
         this.avatar = users.avatar();
         this.username = users.username();
     }
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    private String id;
 
     @Column(length = 30, nullable = false)
-    String username;
+    private String username;
 
     @Column(nullable = false)
-    String avatar;
+    private String avatar;
+
 
 }

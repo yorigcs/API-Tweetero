@@ -8,20 +8,23 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class TweetsModel {
+@Table(name = "tweets")
+public class Tweet {
 
-    public TweetsModel(TweetsDTO tweets) {
-        this.username = tweets.username();
+    public Tweet(TweetsDTO tweets, String userId) {
+        this.userId = userId;
         this.tweet = tweets.tweet();
     }
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
-
-    @Column(length = 30, nullable = false)
-    String username;
+    private String id;
 
     @Column(nullable = false)
-    String tweet;
+    private String tweet;
+
+    @Column(nullable = false)
+    private String userId;
+
+
 
 }
